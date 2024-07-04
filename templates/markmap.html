@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.17.0/dist/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+</head>
+<script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15"></script>
+
+
+<body>
+
+    <div id="markmap"></div>
+    <script>
+    const markdown = `{% block constant %}{% endblock %}`.trim();
+
+    const { Transformer } = window.markmap;
+    const transformer = new Transformer();
+
+    // 1. transform Markdown
+    const { root, features } = transformer.transform(markdown);
+
+    // 2. get assets
+    const assets = transformer.getUsedAssets(features);
+
+    window.jsonroot=JSON.stringify(root, null, 2);
+    // document.getElementById('markmap').textContent  = JSON.stringify(root, null, 2);
+    </script>
+
+
+    <svg id="mindmap"></svg>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0/dist/browser/index.js">
+        (e=>{
+            window.WebFontConfig={
+                custom:{
+                    families:["KaTeX_AMS","KaTeX_Caligraphic:n4,n7","KaTeX_Fraktur:n4,n7","KaTeX_Main:n4,n7,i4,i7","KaTeX_Math:i4,i7","KaTeX_Script","KaTeX_SansSerif:n4,n7,i4","KaTeX_Size1","KaTeX_Size2","KaTeX_Size3","KaTeX_Size4","KaTeX_Typewriter"]
+                },
+                active:()=>{
+                    e().refreshHook.call()
+                }
+            }
+        }
+        )(()=>window.markmap)
+    </script>
+
+
+
+    <script>
+        (
+            (i,L,f,o)=>{const w=i();window.mm=w.Markmap.create("svg#mindmap",(L||w.deriveOptions)(o),f)}
+        )
+        (
+            ()=>window.markmap,null,
+            JSON.parse(window.jsonroot)
+            , {"colorFreezeLevel":2}
+        )
+    </script>
+</body>
+
+
+</html>
