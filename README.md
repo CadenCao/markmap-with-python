@@ -16,5 +16,5 @@ python markmap_server.py --host 0.0.0.0 --port 5491
 ```
 ![服务端启动](./pictures/server_demo.gif)
 
-2、进入到markmap_server.py文件中，修改文件中待生成脑图的markdown文本变量markdown、服务启动地址和端口。运行该文件：`python markmap_client.py`：
+2、进入到markmap_server.py文件中，修改文件中待生成脑图的markdown文本变量markdown（可以通过大模型prompt实现）、服务启动地址和端口。运行该文件：`python markmap_client.py`：
 ![客服端启动](./pictures/client_demo.gif)
